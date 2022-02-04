@@ -58,7 +58,7 @@ def lol():
     else:
         y += 1
         result.config(
-            text=y,
+            text=f"Ложних нажатий: {y}",
         )
 
 
