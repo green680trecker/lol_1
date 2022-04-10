@@ -1,8 +1,8 @@
 def print_log(func):
 
-    def wrapper(x, y):
-        print("some_func была выполнена")
-        result = func(x, y)
+    def wrapper(*args, **kwargs):
+        print(f"{func.__name__} была выполнена")
+        result = func(*args, **kwargs)
         return result
     return wrapper
 @print_log
