@@ -1,12 +1,17 @@
-def print_log(func):
+import sqlite3
+from flask import Flask, render_template
 
-    def wrapper(x, y):
-        print("some_func была выполнена")
-        result = func(x, y)
-        return result
-    return wrapper
-@print_log
-def some_func(x, y):
-    return x * y
+app = Flask(__name__)
 
-print(some_func(2, 5))
+@app.route('/')
+def get_unique_name():
+    curso = sqlite3.connect('example.db')
+    cur = curso.cursor()
+    sql = ('SELECT FirstName from customers Group by FirstName ')
+    cur.execute(sql)
+    labels = cur.fetchall()
+    labels = [i[0] for i in labels]
+    curso.close()
+    return render_template('index.html', labels=labels)
+
+app.run(debug=True)
